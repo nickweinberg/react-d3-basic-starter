@@ -52,13 +52,12 @@ var DataSeries = React.createClass({
                    .rangeRoundBands([0, this.props.width], 0.05);
 
     var bars = _.map(this.props.data, function(point, i) {
-      console.log(yScale(point));
       return (
         <Bar
           height={yScale(point)}
           width={xScale.rangeBand()}
           offset={xScale(i)}
-          availableHeight={this.props.height}
+          availableHeight={props.height}
           color={props.color}
           key={i} />
         );
