@@ -72,7 +72,7 @@ var BarChart = React.createClass({
     return (
       <Chart width={this.props.width} height={this.props.height}>
         <DataSeries
-          data={chartData}
+          data={this.props.data}
           width={this.props.width}
           height={this.props.height}
           color={chartColor} />
@@ -81,7 +81,40 @@ var BarChart = React.createClass({
   }
 });
 
+var RandomizerButton = React.createClass({
+  render: function() {
+
+    return (<button onClick={this.props.clickHandler}>Go!</button>);
+  }
+});
+
+var App = React.createClass({
+  getInitialState: function() {
+    return {
+      data: [1,5,30,2,9,15,19],
+      width: 600,
+      height: 300
+    }
+  },
+
+  getRandomData: function() {
+    var newChartData = _.range(25)
+                 .map(function() {
+                    return _.random(1,30);
+                 });
+    this.setState({data: newChartData});
+  },
+  render: function() {
+    return(
+      <div>
+        <BarChart data={this.state.data} width={this.state.width} height={this.state.height} />
+        <RandomizerButton clickHandler={this.getRandomData} />
+      </div>
+    )
+  }
+});
+
 React.render(
-  <BarChart width={600} height={300} />,
+  <App />,
   document.getElementById('container')
 );
